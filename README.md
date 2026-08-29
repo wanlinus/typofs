@@ -7,7 +7,7 @@
 [![C](https://img.shields.io/badge/C-MSVC-00599C.svg)](c)
 [![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey.svg)](#)
 
-逻辑源自 `typminio`（Go），用 **Rust** 与 **C** 重写；存储不限 MinIO/RustFS，只要是 **S3 兼容**的对象存储即可（MinIO、RustFS、AWS S3、Ceph…）。
+用 **Rust** 与 **C** 实现；存储不限 MinIO/RustFS，只要是 **S3 兼容**的对象存储即可（MinIO、RustFS、AWS S3、Ceph…）。
 
 ## 特性
 
@@ -145,7 +145,3 @@ mc anonymous set download tc/tuchuang-2026
 ## 许可证
 
 [MIT](LICENSE) © [Wanli](https://github.com/wanlinus)。
-
----
-
-*参考原版：`github.com/wanlinus/typminio`。*

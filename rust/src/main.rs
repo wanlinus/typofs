@@ -1,6 +1,6 @@
 //! typofs —— Typora 的 S3 兼容图床客户端（Rust 版）
 //!
-//! 逻辑照搬 E:\All\Code\typminio（Go 版）：读 config.ini、按年建桶、
+//! 逻辑：读 config.ini、按年建桶、
 //! 逐张顺序上传、对象名=前10字-5位随机字母+扩展名，输出 "Upload Success:" + 每个 URL。
 //!
 //! 构建: cargo build --release → target/release/typofs
@@ -121,7 +121,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("Upload Success:");
     let mut failed = false;
-    // 逐张顺序上传（照搬 typminio 的简单循环）
+    // 逐张顺序上传
     for f in &files {
         if !Path::new(f).exists() {
             eprintln!("文件不存在: {}", f);

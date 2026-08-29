@@ -2,7 +2,7 @@
 name = "typofs"
 version = "0.1.0"
 edition = "2021"
-description = "Typora S3 兼容图床客户端 (Rust 版, 逻辑对照 typminio)"
+description = "Typora S3 兼容图床客户端 (Rust 版)"
 
 [dependencies]
 # S3 兼容对象存储客户端

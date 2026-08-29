@@ -1,6 +1,6 @@
 # typofs (C)
 
-C 实现的 Typora **S3 兼容**图床客户端（**仅 Windows / MSVC，只用 Windows SDK**）。逻辑照搬 `E:\All\Code\typminio`（Go 版）：读 config.ini、按年建桶、逐张顺序上传、对象名 `前10字-5位随机+扩展名`、输出 `Upload Success:` + 每个 URL。
+C 实现的 Typora **S3 兼容**图床客户端（**仅 Windows / MSVC，只用 Windows SDK**）。读 config.ini、按年建桶、逐张顺序上传、对象名 `前10字-5位随机+扩展名`、输出 `Upload Success:` + 每个 URL。
 
 存储不限 MinIO/RustFS，只要是 S3 兼容的对象存储即可（配好 endpoint/账号/preUrl）。
 

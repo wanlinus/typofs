@@ -1,7 +1,7 @@
 /*
  * typofs —— Typora 的 S3 兼容图床客户端（C 版, 仅 Windows / MSVC, 只用 Windows SDK）
  *
- * 逻辑照搬 E:\All\Code\typminio（Go 版）：读 config.ini、按年建桶、逐张顺序上传、
+ * 逻辑：读 config.ini、按年建桶、逐张顺序上传、
  * 对象名=前10字-5位随机+扩展名、输出 "Upload Success:" + 每个 URL。
  *
  * 网络/加密完全用 Windows 原生 API，无任何第三方依赖：
@@ -145,7 +145,7 @@ static int http_put(const char* host, int port, int secure, const char* uri, con
                     const unsigned char* body, long len, long* status, char* resp, size_t resp_sz) {
     wchar_t whost[256], wuri[1024], whdrs[4096];
     widen(host, whost, 256); widen(uri, wuri, 1024); widen(hdrs, whdrs, 4096);
-    HINTERNET hS = WinHttpOpen(L"typminio/1.0", WINHTTP_ACCESS_TYPE_NO_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
+    HINTERNET hS = WinHttpOpen(L"typofs/1.0", WINHTTP_ACCESS_TYPE_NO_PROXY, WINHTTP_NO_PROXY_NAME, WINHTTP_NO_PROXY_BYPASS, 0);
     if (!hS) return 1;
     HINTERNET hC = WinHttpConnect(hS, whost, (INTERNET_PORT)port, 0);
     if (!hC) { WinHttpCloseHandle(hS); return 1; }
