@@ -105,6 +105,11 @@ buckets  = tuchuang                  # 桶前缀，实际成为 <buckets>-<年�
 2. 点 **「验证图片上传选项」** → 显示 `Upload Success:` 和两个 URL 即成功。
 3. 之后插入/粘贴图片会自动上传，正文替换为 `http://<host>:<port>/<桶>/<对象>`。
 
+> ⚠️ **含空格的路径要加引号**：若把 `typofs.exe` 放在含空格的目录（如 `C:\Program Files\typofs\`），在「自定义命令」里必须用**英文引号**把路径包起来，否则命令行会把路径按空格拆开而报错。例如：
+> ```
+> "C:\Program Files\typofs\typofs.exe"
+> ```
+
 > Typora 从 stdout 取**最后 N 行**作为图片 URL，所以 `Upload Success:` 前缀不影响。
 
 ## 服务端部署（可选）

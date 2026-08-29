@@ -61,6 +61,8 @@ typofs.exe C:\path\img1.png C:\path\img2.jpg
 
 Typora「图像 → 上传服务 → 自定义命令」填该 exe 绝对路径，点「验证图片上传」。
 
+> ⚠️ 若放在含空格的目录（如 `C:\Program Files\typofs\`），「自定义命令」里的路径要用英文引号包起来：`"C:\Program Files\typofs\typofs.exe"`。
+
 ## 说明
 
 - 默认走 **http**（适配 MinIO/RustFS），`endpoint` 填 `host:port` 或带 `http://`/`https://` 前缀；`https://` 前缀才启用 HTTPS。缺省端口 http=80 / https=443，非默认端口签名 Host 会带上端口。
