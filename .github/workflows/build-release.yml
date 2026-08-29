@@ -1,0 +1,60 @@
+name: build-release
+
+# 触发：
+# 1) 推送 v* 标签（如 v1.0.0）→ 编译并发布到 Release（可点击下载）
+# 2) 手动 Run workflow → 编译并上传 artifact
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Windows x64
+    runs-on: windows-latest
+    permissions:
+      contents: write   # 允许创建 Release / 上传资产
+    steps:
+      - uses: actions/checkout@v4
+
+      # 加载 MSVC 环境（cl.exe / link.exe / Windows SDK libs）
+      - name: Set up MSVC
+        uses: ilammy/msvc-dev-cmd@v1
+
+      # ---------- Rust 版 ----------
+      - name: Set up Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Build Rust (release)
+        working-directory: rust
+        run: cargo build --release
+      - name: Stage Rust exe
+        shell: pwsh
+        run: Copy-Item rust\target\release\typofs.exe typofs-rust-windows-x64.exe -Force
+
+      # ---------- C 版 ----------
+      - name: Build C (release)
+        working-directory: c
+        run: cl /utf-8 /std:c11 /O2 main.c /Fe:typofs.exe winhttp.lib bcrypt.lib
+      - name: Stage C exe
+        shell: pwsh
+        run: Copy-Item c\typofs.exe typofs-c-windows-x64.exe -Force
+
+      # 上传为 workflow artifact（Actions 运行页也可下载）
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: typofs-windows-x64
+          path: |
+            typofs-rust-windows-x64.exe
+            typofs-c-windows-x64.exe
+
+      # 打标签时发布到 Release（Releases 页可点击下载）
+      - name: Publish release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            typofs-rust-windows-x64.exe
+            typofs-c-windows-x64.exe
+          generate_release_notes: true
