@@ -1,0 +1,18 @@
+# 构建产物
+/rust/target/
+/c/build/
+/c/main.obj
+/c/*.obj
+/c/typofs.exe
+/c/*.exe
+
+# 用户配置（含密钥），绝不入库
+config.ini
+/c/config.ini
+rust/target/release/config.ini
+
+# 测试/开发遗留
+rust/test.png
+
+# 个人开发用的镜像配置（中国镜像），不入库
+rust/.cargo/config.toml

@@ -1,0 +1,20 @@
+[package]
+name = "typofs"
+version = "0.1.0"
+edition = "2021"
+description = "Typora S3 兼容图床客户端 (Rust 版, 逻辑对照 typminio)"
+
+[dependencies]
+# S3 兼容对象存储客户端
+rust-s3 = "0.35"
+# 异步运行时（仅需 runtime + main 宏）
+tokio = { version = "1", features = ["rt-multi-thread", "macros"] }
+# 随机文件名 & 按年分桶
+rand = "0.8"
+chrono = "0.4"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+panic = "abort"

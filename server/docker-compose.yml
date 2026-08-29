@@ -1,0 +1,29 @@
+# 图床(typofs)独立对象存储 —— RustFS (S3 兼容)
+# 与其它部件(9000)分离，独立数据卷，S3 用 9100，控制台用 9101。
+#
+# 用法:  docker compose up -d
+# 说明:  桶默认私有；需执行 server/README.md 里的 mc 命令设为公开读，
+#        这样 typofs 返回的静态 URL 才能被浏览器直接访问。
+#
+# 安全:  RUSTFS_ACCESS_KEY/SECRET 默认是 rustfsadmin(弱)。
+#        生产环境务必改成强随机(openssl rand -base64 24)。
+
+services:
+  tc_rustfs:
+    image: rustfs/rustfs:latest
+    container_name: tc_rustfs
+    restart: unless-stopped
+    command: /data --console-enable
+    environment:
+      - RUSTFS_ACCESS_KEY=rustfsadmin
+      - RUSTFS_SECRET_KEY=rustfsadmin
+      - RUSTFS_VOLUMES=/data
+      - RUSTFS_CONSOLE_ENABLE=true
+    ports:
+      - "9100:9000"    # S3 API
+      - "9101:9001"    # 管理控制台
+    volumes:
+      - tc_rustfs_data:/data
+
+volumes:
+  tc_rustfs_data:
